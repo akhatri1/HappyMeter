@@ -1,0 +1,33 @@
+import sys
+import glob
+import random
+
+dependency = 60             # means that the dependency is 60% 
+var =[None]*100
+var1 = [None]*100
+
+def magic(numList):         # [1,2,3]
+    s = map(str, numList)   # ['1','2','3']
+    s = ''.join(s)          # '123'
+    s = int(s)              # 123
+    return s 
+
+def printing():
+   #print("My first Python program")
+   
+   for x in range (0, 100):
+       random.seed()
+       var[x] = magic(random.sample([-1, 0, 1], 1))
+       #print(var[x])
+       randDependency = random.randrange(1, 100, 1)
+       if randDependency < dependency:
+          var1[x] = var[x]      
+       else:
+          var1[x] = magic(random.sample([-1, 0, 1], 1))
+      
+   print(var)
+   print(var1)
+
+   
+
+printing() 
