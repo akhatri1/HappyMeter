@@ -1,0 +1,49 @@
+import sys
+import glob
+import random
+
+randomMoodList = [None]*100
+randomInfluencedList = [None]*100
+dependency = 90
+#name = ['Ankit', 'Jason']
+#mood_type = ['happy', 'flat']
+
+def magic(numList):         # [1,2,3]
+    s = map(str, numList)   # ['1','2','3']
+    s = ''.join(s)          # '123'
+    s = int(s)              # 123
+    return s 
+
+def GenerateUser(num_users,name,mood_type,influence):
+	for n in range(0, num_users):
+		print(name[n])
+		if mood_type[n] == 'happy':
+			moodIndicator = 1
+		if mood_type[n] == 'flat':
+			moodIndicator = 0
+		if mood_type[n] == 'sad':
+			moodIndicator = -1
+		for x in range(0, 100):
+			random.seed()
+			randDependencyMood = random.randrange(1, 100, 1)
+			if randDependencyMood < dependency:
+          			randomMoodList[x] = moodIndicator      
+    			else:
+          			randomMoodList[x] = magic(random.sample([-1, 0, 1], 1))
+		print(randomMoodList)
+		GenerateInfluencedUsers(4,influence,name[n],randomMoodList)
+
+def GenerateInfluencedUsers(num_users,influence,influencer,randomMoodList):
+	for n in range(0, num_users):
+		print influencer,"_User",n
+		for x in range(0,100):
+			random.seed()
+			randInfluence = random.randrange(1,100,1)
+			if randInfluence < influence:
+ 				randomInfluencedList[x] = randomMoodList[x]
+			else:
+				randomInfluencedList[x] = magic(random.sample([-1, 0, 1], 1))
+		print randomInfluencedList
+
+
+GenerateUser(4,["Ankit","Jason","Sergio","Kevin"],["happy","flat","happy","sad"],60)
